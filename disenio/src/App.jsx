@@ -63,11 +63,12 @@ function App() {
   }, []);
 
   return (
-    <div className="contenedorPrincipal">
+    <div className="contenedor">
       <div className="titulo">
         INGRESE EL NUMERO DE CUIT Y CORROBORE LA INFORMACION PROPORCIONADA
-        (DEJAR EN BLANCO PARA CONSUMIDOR FINAL)
+        DEJAR EN BLANCO PARA CONSUMIDOR FINAL
       </div>
+    <div className="contenedorPrincipal">
       <button className="btnLimpiar" onClick={handleLimpiar}>
         LIMPIAR DATOS
       </button>
@@ -142,6 +143,7 @@ function App() {
         <div className="tipoFacturaLeft">A</div>
         <div className="tipoFacturaRight">A</div>
       </div>
+    </div>
     </div>
   );
 }
