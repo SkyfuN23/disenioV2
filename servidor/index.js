@@ -1,5 +1,5 @@
 const { Server } = require("socket.io");
-const { getPersonaCUIT } = require("./afip");
+const { getPersonaCUIT, facturar } = require("./afip");
 
 const PUERTO = 4000;
 
@@ -18,7 +18,7 @@ io.on("connection", (socket) => {
       socket.emit("buscar-cuit", data);
     }
   });
-  socket.on("factura", (factura) => {
-    console.log(factura);
+  socket.on("factura", async (factura) => {
+    await facturar(factura);
   });
 });

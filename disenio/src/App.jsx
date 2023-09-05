@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { socket } from "./main.jsx";
 
+const LIMITE_FACTURA = 46000;
+
 function App() {
   const [cuit, setCuit] = useState("");
   const [total, setTotal] = useState("");
@@ -11,6 +13,13 @@ function App() {
 
   const [nuevosInputs, setNuevosInputs] = useState(false);
 
+  const [dni, setDNI] = useState("");
+  const [nombre, setNombre] = useState("");
+  const [domicilioCF, setDomicilioCF] = useState("");
+
+  const [codigoFactura, setCodigoFactura] = useState(6);
+  const [mensajeIdentificar, setMensajeIdentificar] = useState(false);
+
   const handleLimpiar = () => {
     setCuit("");
     setTotal("");
@@ -18,6 +27,12 @@ function App() {
     setDescripcion("");
     setRazonSocial("");
     setCondIva("CONSUMIDOR FINAL");
+    setNuevosInputs(false);
+    setDNI("");
+    setNombre("");
+    setDomicilioCF("");
+    setCodigoFactura(6);
+    setMensajeIdentificar(false);
   };
 
   const buscarHandler = () => {
@@ -27,12 +42,13 @@ function App() {
 
   const enviarHandler = () => {
     if (
-      total > 46000 &&
-      nuevosInputs === false &&
-      condIva === "CONSUMIDOR FINAL"
+      total > LIMITE_FACTURA &&
+      condIva === "CONSUMIDOR FINAL" &&
+      dni.length < 7
     ) {
-      setNuevosInputs(true);
+      setMensajeIdentificar(true);
     } else {
+      setMensajeIdentificar(false);
       const factura = {
         cuit,
         total,
@@ -40,10 +56,23 @@ function App() {
         descripcion,
         razonSocial,
         condIva,
+        dni,
+        nombre,
+        domicilioCF,
+        codigoFactura,
       };
+      console.log(factura);
       socket.emit("factura", factura);
     }
   };
+
+  useEffect(() => {
+    if (condIva === "MONOTRIBUTO" || condIva === "RESPONSABLE INSCRIPTO") {
+      setCodigoFactura(1);
+    } else if (condIva === "CONSUMIDOR FINAL" || condIva === "IVA EXENTO") {
+      setCodigoFactura(6);
+    }
+  }, [condIva]);
 
   useEffect(() => {
     socket.on("buscar-cuit", (data) => {
@@ -64,86 +93,114 @@ function App() {
 
   return (
     <div className="contenedor">
+      <span id="databaseStatus"></span>
       <div className="titulo">
-        INGRESE EL NUMERO DE CUIT Y CORROBORE LA INFORMACION PROPORCIONADA
-        DEJAR EN BLANCO PARA CONSUMIDOR FINAL
+        INGRESE EL NUMERO DE CUIT Y CORROBORE LA INFORMACION PROPORCIONADA DEJAR
+        EN BLANCO PARA CONSUMIDOR FINAL
       </div>
-    <div className="contenedorPrincipal">
-      <button className="btnLimpiar" onClick={handleLimpiar}>
-        LIMPIAR DATOS
-      </button>
-      <div className="contenedorCuit">
-        <div className="tituloCuit">CUIT:</div>
-        <input
-          className="inputCuit"
-          type="number"
-          value={cuit}
-          onChange={(e) => setCuit(e.target.value)}
-        />
-        <button onClick={buscarHandler} className="botonBuscar">
-          Buscar
+      <div className="contenedorPrincipal">
+        <button className="btnLimpiar" onClick={handleLimpiar}>
+          LIMPIAR DATOS
         </button>
-        <span id="buscando"></span>
-      </div>
-      <div className="contenedorRazonSocial">
-        <div className="tituloRazonSocial">RAZON SOCIAL:</div>
-        <div className="muestraRazonSocial">{razonSocial}</div>
-      </div>
-      <div className="contenedorCondFrenteIva">
-        <div className="tituloCondFrenteIva">COND. FRENTE AL IVA:</div>
-        <div className="muestraCondFrenteIva">{condIva}</div>
-      </div>
-      <div className="contenedorDomicilio">
-        <div className="tituloDomicilio">DOMICILIO:</div>
-        <div className="muestraDomicilio">{domicilio}</div>
-      </div>
-      <div className="contenedorDescripcion">
-        <div className="tituloDescripcion">DESCRIPCIÓN:</div>
-        <input
-          className="inputDescripcion"
-          value={descripcion}
-          onChange={(e) => setDescripcion(e.target.value)}
-        />
-      </div>
-      <div className="contenedorTotal">
-        <div className="tituloTotal">TOTAL:</div>
-        <input
-          className="inputTotal"
-          type="number"
-          value={total}
-          onChange={(e) => setTotal(e.target.value)}
-        />
-      </div>
-        <div className="advertencia">IMPORTE MAYOR A $46000 IDENTIFIQUE AL CONSUMIDOR FINAL</div>
-      <div className="contenedorBotones">
-        <div>
-          <button onClick={() => setNuevosInputs((prev) => !prev)} className="btnIdentificar">
-            IDENTIFICAR CONS. FINAL
+        <div className="contenedorCuit">
+          <div className="tituloCuit">CUIT:</div>
+          <input
+            className="inputCuit"
+            type="number"
+            value={cuit}
+            onChange={(e) => setCuit(e.target.value)}
+          />
+          <button onClick={buscarHandler} className="botonBuscar">
+            Buscar
           </button>
-          {nuevosInputs && (
-            <>
-              <div className="contenedorDni">
-                <div className="tituloDni">DNI:</div>
-                <input className="inputTotal" type="number" />
-              </div>
-              <div className="contenedorNombre">
-                <div className="tituloNombre">NOMBRE:</div>
-                <input className="inputTotal" type="text" />
-              </div>
-              <div className="contenedorDomicilio2">
-                <div className="tituloDomicilio2">DOMICILIO:</div>
-                <input className="inputTotal" type="text" />
-              </div>
-            </>
-          )}
+          <span id="buscando"></span>
         </div>
-        <button onClick={enviarHandler} className="btnEnviar">
-          ENVIAR
-        </button>
-        <div className="tipoFacturaLeft">A</div>
-        <div className="tipoFacturaRight">A</div>
+        <div className="contenedorRazonSocial">
+          <div className="tituloRazonSocial">RAZON SOCIAL:</div>
+          <div className="muestraRazonSocial">{razonSocial}</div>
+        </div>
+        <div className="contenedorCondFrenteIva">
+          <div className="tituloCondFrenteIva">COND. FRENTE AL IVA:</div>
+          <div className="muestraCondFrenteIva">{condIva}</div>
+        </div>
+        <div className="contenedorDomicilio">
+          <div className="tituloDomicilio">DOMICILIO:</div>
+          <div className="muestraDomicilio">{domicilio}</div>
+        </div>
+        <div className="contenedorDescripcion">
+          <div className="tituloDescripcion">DESCRIPCIÓN:</div>
+          <input
+            className="inputDescripcion"
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
+          />
+        </div>
+        <div className="contenedorTotal">
+          <div className="tituloTotal">TOTAL:</div>
+          <input
+            className="inputTotal"
+            type="number"
+            value={total}
+            onChange={(e) => setTotal(e.target.value)}
+          />
+        </div>
+        <div className="advertencia">
+          {mensajeIdentificar &&
+            "IMPORTE MAYOR A $46000 IDENTIFIQUE AL CONSUMIDOR FINAL"}
+        </div>
+        <div className="contenedorBotones">
+          <div className="contenedorIdentificar">
+            <button
+              onClick={() => setNuevosInputs((prev) => !prev)}
+              className="btnIdentificar"
+            >
+              IDENTIFICAR CONS. FINAL
+            </button>
+            {nuevosInputs && (
+              <>
+                <div className="contenedorDni">
+                  <div className="tituloDni">DNI:</div>
+                  <input
+                    className="inputTotal"
+                    type="number"
+                    value={dni}
+                    onChange={(e) => setDNI(e.target.value)}
+                  />
+                </div>
+                <div className="contenedorNombre">
+                  <div className="tituloNombre">NOMBRE:</div>
+                  <input
+                    className="inputTotal"
+                    type="text"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}
+                  />
+                </div>
+                <div className="contenedorDomicilio2">
+                  <div className="tituloDomicilio2">DOMICILIO:</div>
+                  <input
+                    className="inputTotal"
+                    type="text"
+                    value={domicilioCF}
+                    onChange={(e) => setDomicilioCF(e.target.value)}
+                  />
+                </div>
+              </>
+            )}
+          </div>
+          <div>
+            <button onClick={enviarHandler} className="btnEnviar">
+              ENVIAR
+            </button>
+          </div>
+          <div className="tipoFacturaLeft">
+            {codigoFactura === 1 ? "A" : codigoFactura === 6 ? "B" : "ERROR"}
+          </div>
+          <div className="tipoFacturaRight">
+            {codigoFactura === 1 ? "A" : codigoFactura === 6 ? "B" : "ERROR"}
+          </div>
+        </div>
       </div>
-    </div>
     </div>
   );
 }

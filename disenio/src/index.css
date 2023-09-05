@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap");
 
 * {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   font-size: 16px;
 }
 
@@ -35,10 +35,18 @@ body {
   align-items: start;
 }
 
-.contenedorRazonSocial, .contenedorCondFrenteIva, .contenedorDomicilio, .contenedorCuit, .contenedorDni, .contenedorNombre,.contenedorDomicilio2, .contenedorDescripcion, .contenedorTotal {
+.contenedorRazonSocial,
+.contenedorCondFrenteIva,
+.contenedorDomicilio,
+.contenedorCuit,
+.contenedorDni,
+.contenedorNombre,
+.contenedorDomicilio2,
+.contenedorDescripcion,
+.contenedorTotal {
   display: flex;
   align-items: center;
-  padding: 10px;
+  min-height: 50px;
 }
 
 .contenedorTotal {
@@ -64,11 +72,22 @@ body {
   margin-left: 5px;
 }
 
-.tituloCuit, .tituloRazonSocial, .tituloCondFrenteIva, .tituloDomicilio, .tituloDescripcion, .tituloTotal, .tituloDni, .tituloNombre, .tituloDomicilio2{
+.tituloCuit,
+.tituloRazonSocial,
+.tituloCondFrenteIva,
+.tituloDomicilio,
+.tituloDescripcion,
+.tituloTotal,
+.tituloDni,
+.tituloNombre,
+.tituloDomicilio2 {
   text-shadow: 0px 0px 1px black;
 }
 
-.muestraRazonSocial, .muestraCondFrenteIva, .muestraDomicilio, .muestraDescripcion {
+.muestraRazonSocial,
+.muestraCondFrenteIva,
+.muestraDomicilio,
+.muestraDescripcion {
   margin-left: 15px;
   padding: 5px 10px 5px 10px;
   background-color: rgb(233, 233, 233);
@@ -85,7 +104,6 @@ body {
   color: rgb(238, 0, 0);
 }
 
-
 /* Works for Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -99,7 +117,7 @@ input::-webkit-inner-spin-button {
 }
 
 .btnEnviar {
-  margin-left: 300px;
+  margin-left: 200px;
   padding: 5px 10px 5px 10px;
 }
 
@@ -125,6 +143,15 @@ input::-webkit-inner-spin-button {
   top: 40%;
 }
 
+.contenedorIdentificar {
+  width: 350px;
+}
+
+#databaseStatus {
+  margin-top: 5px;
+  font-weight: bold;
+  height: 20px;
+}
 
 /*CODIGO VIEJO*/
 
