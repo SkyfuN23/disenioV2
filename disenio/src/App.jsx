@@ -92,12 +92,12 @@ function App() {
         <div className="tituloCondFrenteIva">COND. FRENTE AL IVA:</div>
         <div className="muestraCondFrenteIva">{condIva}</div>
       </div>
-      <div className="contenedorCondFrenteIva">
-        <div className="tituloCondFrenteIva">DOMICILIO:</div>
-        <div className="muestraCondFrenteIva">{domicilio}</div>
+      <div className="contenedorDomicilio">
+        <div className="tituloDomicilio">DOMICILIO:</div>
+        <div className="muestraDomicilio">{domicilio}</div>
       </div>
       <div className="contenedorDescripcion">
-        <div className="tituloDescripcion">DESCRIPCIÓN</div>
+        <div className="tituloDescripcion">DESCRIPCIÓN:</div>
         <input
           className="inputDescripcion"
           value={descripcion}
@@ -113,31 +113,35 @@ function App() {
           onChange={(e) => setTotal(e.target.value)}
         />
       </div>
-      <button
-        onClick={() => setNuevosInputs((prev) => !prev)}
-        className="btnIdentificar"
-      >
-        IDENTIFICAR CONSUMIDOR FINAL
-      </button>
-      {nuevosInputs && (
-        <>
-          <div>
-            <div>DNI:</div>
-            <input type="number" />
-          </div>
-          <div>
-            <div>NOMBRE:</div>
-            <input type="number" />
-          </div>
-          <div>
-            <div>DOMICILIO:</div>
-            <input type="number" />
-          </div>
-        </>
-      )}
-      <button onClick={enviarHandler} className="btnEnviar">
-        ENVIAR
-      </button>
+        <div className="advertencia">IMPORTE MAYOR A $46000 IDENTIFIQUE AL CONSUMIDOR FINAL</div>
+      <div className="contenedorBotones">
+        <div>
+          <button onClick={() => setNuevosInputs((prev) => !prev)} className="btnIdentificar">
+            IDENTIFICAR CONS. FINAL
+          </button>
+          {nuevosInputs && (
+            <>
+              <div className="contenedorDni">
+                <div className="tituloDni">DNI:</div>
+                <input className="inputTotal" type="number" />
+              </div>
+              <div className="contenedorNombre">
+                <div className="tituloNombre">NOMBRE:</div>
+                <input className="inputTotal" type="text" />
+              </div>
+              <div className="contenedorDomicilio2">
+                <div className="tituloDomicilio2">DOMICILIO:</div>
+                <input className="inputTotal" type="text" />
+              </div>
+            </>
+          )}
+        </div>
+        <button onClick={enviarHandler} className="btnEnviar">
+          ENVIAR
+        </button>
+        <div className="tipoFacturaLeft">A</div>
+        <div className="tipoFacturaRight">A</div>
+      </div>
     </div>
   );
 }

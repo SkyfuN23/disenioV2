@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import "../src/index.css";
 import App from "./App.jsx";
 
-const IPV4 = "192.168.0.98"; //PONER IPCONFIG EN CMD Y LUEGO LA IPV4
+const IPV4 = "192.168.0.197"; //PONER IPCONFIG EN CMD Y LUEGO LA IPV4
 export const socket = io(`http://${IPV4}:4000`); //PONER IPCONFIG EN CMD Y LUEGO LA IPV4
 
 socket.on("connect", () => {

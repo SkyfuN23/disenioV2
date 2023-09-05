@@ -20,8 +20,8 @@ Al apretar el boton enviar debe detectar si es CONSUMIDOR FINAL u OTRO.
 
 -Si es OTRO (o sea EXENTO, RESPONSABLE INSCRIPTO o MONOTRIBUTISTA) se abre un MODAL para confirmar factura
 
--Si es CONSUMIDOR FINAL debe analizar si es un importe > 45000 o no.
-En caso de que el importe sea mayor a 45000, se debe agregar 3 INPUT
+-Si es CONSUMIDOR FINAL debe analizar si es un importe > 46000 o no.
+En caso de que el importe sea mayor a 46000, se debe agregar 3 INPUT
 NOMBRE: (NO TIENE QUE SER OBLIGATORIO PARA MANDAR)
 DNI: (TIENE QUE SER OBLIGATORIO)
 DOMICILIO: (NO TIENE QUE SER OBLIGATORIO)

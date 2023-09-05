@@ -1,4 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono&display=swap');
+
 * {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 16px;
+}
+
+body {
+  margin: 0;
+  background-color: #92bdd1;
+  height: 100%;
+}
+
+.titulo {
+  margin-top: 20px;
+}
+
+.btnLimpiar {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  padding: 5px 10px 5px 10px;
+}
+
+.contenedorPrincipal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contenedorRazonSocial, .contenedorCondFrenteIva, .contenedorDomicilio, .contenedorCuit, .contenedorDni, .contenedorNombre,.contenedorDomicilio2, .contenedorDescripcion, .contenedorTotal {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.contenedorTotal {
+  padding-bottom: 3px;
+}
+
+.inputCuit {
+  padding: 2px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-align: center;
+  width: 150px;
+}
+
+.inputDescripcion {
+  padding: 2px;
+  margin-left: 5px;
+  width: 500px;
+}
+
+.inputTotal {
+  padding: 2px;
+  margin-left: 5px;
+}
+
+.tituloCuit, .tituloRazonSocial, .tituloCondFrenteIva, .tituloDomicilio, .tituloDescripcion, .tituloTotal, .tituloDni, .tituloNombre, .tituloDomicilio2{
+  text-shadow: 0px 0px 1px black;
+}
+
+.muestraRazonSocial, .muestraCondFrenteIva, .muestraDomicilio, .muestraDescripcion {
+  margin-left: 15px;
+  padding: 5px 10px 5px 10px;
+  background-color: rgb(233, 233, 233);
+}
+
+.contenedorBotones {
+  display: flex;
+  margin-top: 20px;
+}
+
+.advertencia {
+  font-weight: 600;
+  font-size: 13px;
+  color: rgb(238, 0, 0);
+}
+
+
+/* Works for Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.btnIdentificar {
+  margin-right: 10px;
+  padding: 5px 10px 5px 10px;
+}
+
+.btnEnviar {
+  margin-left: 10px;
+  padding: 5px 10px 5px 10px;
+}
+
+.tipoFacturaLeft {
+  box-shadow: 1px 1px 5px black;
+  padding: 5px 15px 5px 15px;
+  border-radius: 3px;
+  background-color: white;
+  font-size: 60px;
+  position: absolute;
+  left: 10%;
+  top: 40%;
+}
+
+.tipoFacturaRight {
+  box-shadow: -1px 1px 5px black;
+  padding: 5px 15px 5px 15px;
+  border-radius: 3px;
+  background-color: white;
+  font-size: 60px;
+  position: absolute;
+  right: 10%;
+  top: 40%;
+}
+
+
+/*CODIGO VIEJO*/
+
+/* * {
   margin: 0;
   padding: 0;
   border: 0;
@@ -99,7 +221,7 @@ html {
 }
 
 /* Works for Chrome, Safari, Edge, Opera */
-input::-webkit-outer-spin-button,
+/* input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
@@ -113,4 +235,4 @@ input::-webkit-inner-spin-button {
 
 #buscando {
   margin-left: 10px;
-}
+} */
