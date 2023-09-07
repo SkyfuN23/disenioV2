@@ -759,7 +759,7 @@ async function crearPDF(
 
   await page.goto(`file://${htmlPath}`);
 
-  const path = `facturas/${numeroComprobante}-${copia === "ORIGINAL" ? "O" : "D"
+  const path = `facturas/FACT ${codigoFactura === 6 ? "B" : "A"} - ${numeroComprobante} - ${copia === "ORIGINAL" ? "O" : "D"
     }.pdf`;
 
   await page.pdf({
