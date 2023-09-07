@@ -667,10 +667,6 @@ async function crearPDF(
                     <div class="tituloCliente">Condición frente al IVA:</div>
                     <div class="contenidoCliente">${condIva}</div>
                 </div>
-                <div class="cliente">
-                    <div class="tituloCliente"></div>
-                    <div class="contenidoCliente"></div>
-                </div>
             </div>
             <div class="grupo2">
                 <div class="cliente">
