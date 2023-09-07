@@ -1,0 +1,444 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+  <style>
+    .container {
+      margin-left: 9px;
+      /* margin-top: 2px; */
+      width: 20cm;
+      height: 14.01cm;
+      border: 1px solid;
+      position: relative;
+  }
+  
+  .cajaOriginal {
+      position: relative;
+      border-bottom: 1px solid;
+      width: 20cm;
+      height: 0.5cm;
+  }
+  
+  .cajaGrande {
+      border-bottom: 1px solid;
+      width: 20cm;
+      height: 4cm;
+      position: relative;
+  }
+  
+  .cajaB {
+      width: 1.5cm;
+      height: 1.5cm;
+      border: 1px solid;
+      border-top: 0;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      top: 1cm;
+      left: calc(51% - 1cm);
+      transform: translateY(-66%);
+  }
+  
+  .lineaDivisoria {
+      height: 2.505cm;
+      border-right: 1px solid;
+      border-top: 0;
+      position: absolute;
+      left: calc(54.88% - 1cm);
+      transform: translateY(60%);
+  }
+  
+  .contenidoCajaGrande {
+      display: flex;
+  }
+  
+  .cajaDiseño {
+      width: 10cm;
+      height: 4cm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+  }
+  
+  .cajaFactura {
+      width: 10cm;
+      height: 4cm;
+  }
+  
+  .b {
+      font-size: 30px;
+      font-weight: bold;
+  }
+  
+  .original {
+      font-weight: bold;
+      text-align: center;
+      padding-top: 1px;
+  }
+  
+  .titulo {
+      font-weight: bold;
+      font-size: 25px;
+      text-align: center;
+      color: rgb(35, 35, 129);
+  }
+  
+  .infoDiseño {
+      margin-left: 8px;
+      font-size: 13px;
+      font-weight: bold;
+  }
+  
+  .cod {
+      font-size: 10px;
+      font-weight: bold;
+  }
+  
+  .factura {
+      font-weight: bold;
+      font-size: 25px;
+      margin-left: 50px;
+      margin-top: 12px;
+  }
+  
+  .nroOrden {
+      display: flex;
+  }
+  
+  .nroFactura {
+      margin-left: 16px;
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-evenly;
+      font-weight: bold;
+      font-size: 13px;
+  }
+  
+  .datosAFIP {
+      font-size: 13px;
+      font-weight: bold;
+      margin-top: 4px;
+      margin-left: 50px;
+  }
+  
+  .flexInfoDiseño {
+      display: flex;
+      font-size: 13px;
+  }
+  
+  .infoDiseñoDatos {
+      margin-left: 7px;
+  }
+  
+  .nroDatos {
+      margin-left: 7px;
+      font-size: 14px;
+  }
+  
+  .contenedorDatosAFIP {
+      display: flex;
+  }
+  
+  .infoFecha {
+      margin-left: 7px;
+      font-size: 14px;
+  }
+  
+  .datosAFIPcontenido {
+      font-size: 13px;
+      margin-top: 4px;
+      margin-left: 7px;
+  }
+  
+  .cajaCliente {
+      margin-top: 2px;
+      border-top: 1px solid;
+      border-bottom: 1px solid;
+      height: 2cm;
+      font-size: 13px;
+      display: flex;
+  }
+  
+  .grupo1 {
+      width: 8cm;
+      padding-left: 8px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+  }
+  
+  .grupo2 {
+      width: 12cm;
+      height: 2cm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding-right: 8px;
+  }
+  
+  .tituloCliente {
+      font-weight: bold;
+  }
+  
+  .cliente {
+      display: flex;
+  }
+  
+  .contenidoCliente {
+      font-size: 13px;
+      margin-left: 7px;
+  }
+  
+  .descripcion {
+      width: 12cm;
+      font-size: 13px;
+  }
+  
+  .subtotales {
+      width: 4cm;
+      font-size: 13px;
+  }
+  
+  th {
+      border: 1px solid;
+      border-bottom: 1px solid;
+      background-color: rgb(232, 232, 232);
+  }
+  
+  td {
+      font-size: 14px;
+  }
+  
+  .tdDescripcion {
+      padding-left: 15px;
+  }
+  
+  .tdSubtotales {
+      text-align: center;
+  }
+  
+  .tabla {
+      height: 4.3cm;
+      border-bottom: 1px solid;
+      position: relative;
+  }
+  
+  .contenedorFooter {
+      height: 114px;
+      display: flex;
+  }
+  
+  .divQR {
+      padding-left: 1px;
+      width: 10cm;
+      display: flex;
+      align-items: center;
+  }
+  
+  .divTotal {
+      width: 10cm;
+      display: flex;
+      align-items: center;
+  }
+  
+  .qr {
+      width: 30%;
+  }
+  
+  .CAE {
+      font-size: 13px;
+      font-weight: bold;
+      padding-bottom: 7px;
+      padding-top: 7px;
+      padding-left: 7px;
+  }
+  
+  .comprobanteAutorizado {
+      font-size: 15px;
+      font-style: italic;
+  }
+  
+  .contenedorCAE {
+      display: flex;
+  }
+  
+  .infoCAE {
+      font-size: 13px;
+      padding-bottom: 7px;
+      padding-top: 7px;
+      padding-left: 7px;
+  }
+  
+  .importeTitulo {
+      font-size: 14px;
+      font-weight: bold;
+      padding-top: 7px;
+      padding-bottom: 7px;
+  }
+  
+  .flexImporte {
+      display: flex;
+  }
+  
+  .infoImporte {
+      font-size: 14px;
+      padding-top: 7px;
+      padding-bottom: 7px;
+      padding-left: 10px;
+      font-weight: bolder;
+  }
+  
+  .grupoTitulos {
+      text-align: right;
+      padding-left: 2.6cm;
+  }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="cajaOriginal">
+            <div class="original">DUPLICADO</div>
+        </div>
+        <div class="cajaGrande">
+            <div class="cajaB">
+                <div class="b">A</div>
+                <div class="cod">COD. 001</div>
+            </div>
+            <div class="lineaDivisoria"></div>
+            <div class="contenidoCajaGrande">
+                <div class="cajaDiseño">
+                    <div class="titulo">DISEÑO INTERIOR <br> Revestimiento y Decoración</div>
+                    <div class="flexInfoDiseño">
+                        <div class="infoDiseño">Razón Social:</div>
+                        <div class="infoDiseñoDatos">MAS DANIEL SEBASTIAN Y FERNANDO S H</div>
+                    </div>
+                    <div class="flexInfoDiseño">
+                        <div class="infoDiseño">Domicilio Comercial:</div>
+                        <div class="infoDiseñoDatos">Zelarrayan 376 - Bahia Blanca, Buenos Aires</div>
+                    </div>
+                    <div class="infoDiseño">Condición frente al IVA:&nbsp; &nbsp;IVA Responsable Inscripto</div>
+                </div>
+                <div class="cajaFactura">
+                    <div class="factura">FACTURA</div>
+                    <div class="nroFactura">
+                        <div class="nroOrden">
+                            <div>Punto de Venta:</div>
+                            <div class="nroDatos">00004</div>
+                        </div>
+                        <div class="nroOrden">
+                            <div>Comp. Nro:</div>
+                            <div class="nroDatos">00000001</div>
+                        </div>
+                    </div>
+                    <div class="contenedorDatosAFIP datosAFIP">
+                        <div>Fecha de Emisión:</div>
+                        <div class="infoFecha">6/9/2023</div>
+                    </div>
+                    <div class="contenedorDatosAFIP">
+                        <div class="datosAFIP">CUIT:</div>
+                        <div class="datosAFIPcontenido">30688093240</div>
+                    </div>
+                    <div class="contenedorDatosAFIP">
+                        <div class="datosAFIP">Ingresos Brutos:</div>
+                        <div class="datosAFIPcontenido">30-68809324-0</div>
+                    </div>
+                    <div class="contenedorDatosAFIP">
+                        <div class="datosAFIP">Fecha de Inicio de Actividades:</div>
+                        <div class="datosAFIPcontenido">01/01/1997</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="cajaCliente">
+            <div class="grupo1">
+                <div class="cliente">
+                    <div class="tituloCliente">CUIT/DNI:</div>
+                    <div class="contenidoCliente">27045630027</div>
+                </div>
+                <div class="cliente">
+                    <div class="tituloCliente">Condición frente al IVA:</div>
+                    <div class="contenidoCliente">MONOTRIBUTO</div>
+                </div>
+                <div class="cliente">
+                    <div class="tituloCliente"></div>
+                    <div class="contenidoCliente"></div>
+                </div>
+            </div>
+            <div class="grupo2">
+                <div class="cliente">
+                    <div class="tituloCliente">Apellido y Nombre / Razón Social:</div>
+                    <div class="contenidoCliente">ESTHER ANA LUDUEÑA</div>
+                </div>
+                <div class="cliente">
+                    <div class="tituloCliente">Domicilio:</div>
+                    <div class="contenidoCliente">11 DE ABRIL 152 Piso:7 Dpto:D - BAHIA BLANCA, BUENOS AIRES</div>
+                </div>
+            </div>
+        </div>
+        <div class="tabla">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="descripcion">Descripción</th>
+                        <th class="subtotales">Subtotal</th>
+                        <th class="subtotales">Subtotal C/IVA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="tdDescripcion">87687687</td>
+                        <td class="tdSubtotales">49586.78</td>
+                        <td class="tdSubtotales">60000.00</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="contenedorFooter">
+            <div class="divQR">
+                <img class="qr" src="./images/qr-afip.png" alt="">
+                <div>
+                    <div class="CAE comprobanteAutorizado">Comprobante Autorizado</div>
+                    <div class="contenedorCAE">
+                        <div class="CAE">
+                            CAE:
+                        </div>
+                        <div class="infoCAE">
+                            2328723178
+                        </div>
+                    </div>
+                    <div class="contenedorCAE">
+                        <div class="CAE">
+                            Vencimiento CAE:
+                        </div>
+                        <div class="infoCAE">
+                            29/04/23
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="divTotal">
+                <div class="grupoTitulos">
+                    <div class="importeTitulo">Importe Neto Gravado: $</div>
+                    <div class="importeTitulo">IVA 21%: $</div>
+                    <div class="importeTitulo">Importe Total: $</div>
+                </div>
+                <div>
+                    <div class="infoImporte">49586.78</div>
+                    <div class="infoImporte">10413.22</div>
+                    <div class="infoImporte">60000.00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

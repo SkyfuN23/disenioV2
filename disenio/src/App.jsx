@@ -63,6 +63,7 @@ function App() {
       };
       console.log(factura);
       socket.emit("factura", factura);
+      handleLimpiar();
     }
   };
 
@@ -109,8 +110,13 @@ function App() {
             type="number"
             value={cuit}
             onChange={(e) => setCuit(e.target.value)}
+            onKeyUp={(e) => {
+              if (e.key === "Enter") {
+                buscarHandler();
+              }
+            }}
           />
-          <button onClick={buscarHandler} className="botonBuscar">
+          <button tabIndex={-1} onClick={buscarHandler} className="botonBuscar">
             Buscar
           </button>
           <span id="buscando"></span>
@@ -192,9 +198,6 @@ function App() {
             <button onClick={enviarHandler} className="btnEnviar">
               ENVIAR
             </button>
-          </div>
-          <div className="tipoFacturaLeft">
-            {codigoFactura === 1 ? "A" : codigoFactura === 6 ? "B" : "ERROR"}
           </div>
           <div className="tipoFacturaRight">
             {codigoFactura === 1 ? "A" : codigoFactura === 6 ? "B" : "ERROR"}

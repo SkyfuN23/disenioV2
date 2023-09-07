@@ -33,6 +33,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: start;
+  position: relative;
 }
 
 .contenedorRazonSocial,
@@ -121,17 +122,6 @@ input::-webkit-inner-spin-button {
   padding: 5px 10px 5px 10px;
 }
 
-.tipoFacturaLeft {
-  box-shadow: 1px 1px 5px black;
-  padding: 5px 15px 5px 15px;
-  border-radius: 3px;
-  background-color: white;
-  font-size: 60px;
-  position: absolute;
-  left: 10%;
-  top: 40%;
-}
-
 .tipoFacturaRight {
   box-shadow: -1px 1px 5px black;
   padding: 5px 15px 5px 15px;
@@ -139,8 +129,8 @@ input::-webkit-inner-spin-button {
   background-color: white;
   font-size: 60px;
   position: absolute;
-  right: 10%;
-  top: 40%;
+  top: 20px;
+  right: 5px;
 }
 
 .contenedorIdentificar {
@@ -151,6 +141,10 @@ input::-webkit-inner-spin-button {
   margin-top: 5px;
   font-weight: bold;
   height: 20px;
+}
+
+#buscando {
+  margin-left: 10px;
 }
 
 /*CODIGO VIEJO*/
