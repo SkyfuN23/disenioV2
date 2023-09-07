@@ -2,6 +2,7 @@ const fs = require("fs");
 const { Wsaa, Wsfe, Wspci } = require("afipjs");
 const { print } = require("pdf-to-printer");
 const puppeteer = require("puppeteer");
+const qr = require('qr-image')
 
 //CAMBIAR CERTIFICADO
 var pem = fs.readFileSync("certdiseño/disenio.crt", "utf8");
@@ -203,13 +204,15 @@ async function facturar({
           ImpIVA: importe_iva,
           MonId: "PES",
           MonCotiz: 1,
-          //Iva: [
-          //  {
-          //    Id: 5,
-          //    BaseImp: importe_gravado,
-          //    Importe: importe_iva,
-          //  },
-          //],
+          Iva: {
+            AlicIva: [
+              {
+                Id: 5,
+                BaseImp: importe_gravado,
+                Importe: importe_iva,
+              }
+            ]
+          }
         },
       },
     },
@@ -217,7 +220,7 @@ async function facturar({
 
   const response = await wsfe.FECAESolicitar(factura);
 
-  console.dir(response, { depth: null });
+  //console.dir(response, { depth: null });
 
   const CAE = response.FECAESolicitarResult.FeDetResp.FECAEDetResponse[0].CAE;
   const vtoCAE =
@@ -231,11 +234,11 @@ async function facturar({
     ptoVta: puntoDeVenta,
     tipoCmp: codigoFactura,
     nroCmp: numeroComprobante,
-    importe: importe_total,
+    importe: parseFloat(importe_total),
     moneda: "PES",
     ctz: 1,
     tipoDocRec: docTipo,
-    nroDocRec: docNro,
+    nroDocRec: parseFloat(docNro),
     tipoCodAut: "E",
     codAut: parseInt(CAE),
   };
@@ -630,8 +633,8 @@ async function crearPDF(
                         <div class="nroOrden">
                             <div>Comp. Nro:</div>
                             <div class="nroDatos">${numeroComprobante
-                              .toString()
-                              .padStart(8, "0")}</div>
+      .toString()
+      .padStart(8, "0")}</div>
                         </div>
                     </div>
                     <div class="contenedorDatosAFIP datosAFIP">
@@ -657,9 +660,8 @@ async function crearPDF(
             <div class="grupo1">
                 <div class="cliente">
                     <div class="tituloCliente">CUIT/DNI:</div>
-                    <div class="contenidoCliente">${
-                      docNro === 0 ? "" : docNro
-                    }</div>
+                    <div class="contenidoCliente">${docNro === 0 ? "" : docNro
+    }</div>
                 </div>
                 <div class="cliente">
                     <div class="tituloCliente">Condición frente al IVA:</div>
@@ -673,15 +675,13 @@ async function crearPDF(
             <div class="grupo2">
                 <div class="cliente">
                     <div class="tituloCliente">Apellido y Nombre / Razón Social:</div>
-                    <div class="contenidoCliente">${
-                      docTipo === 96 ? nombre : razonSocial
-                    }</div>
+                    <div class="contenidoCliente">${docTipo === 96 ? nombre : razonSocial
+    }</div>
                 </div>
                 <div class="cliente">
                     <div class="tituloCliente">Domicilio:</div>
-                    <div class="contenidoCliente">${
-                      docTipo === 96 ? domicilioCF : domicilio
-                    }</div>
+                    <div class="contenidoCliente">${docTipo === 96 ? domicilioCF : domicilio
+    }</div>
                 </div>
             </div>
         </div>
@@ -690,20 +690,17 @@ async function crearPDF(
                 <thead>
                     <tr>
                         <th class="descripcion">Descripción</th>
-                        <th class="subtotales">${
-                          codigoFactura == 6 ? "" : "Subtotal"
-                        }</th>
-                        <th class="subtotales">${
-                          codigoFactura == 6 ? "Subtotal" : "Subtotal C/IVA"
-                        }</th>
+                        <th class="subtotales">${codigoFactura == 6 ? "" : "Subtotal"
+    }</th>
+                        <th class="subtotales">${codigoFactura == 6 ? "Subtotal" : "Subtotal C/IVA"
+    }</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td class="tdDescripcion">${descripcion}</td>
-                        <td class="tdSubtotales">${
-                          codigoFactura == 6 ? "" : importe_gravado
-                        }</td>
+                        <td class="tdSubtotales">${codigoFactura == 6 ? "" : importe_gravado
+    }</td>
                         <td class="tdSubtotales">${importe_total}</td>
                     </tr>
                 </tbody>
@@ -734,23 +731,19 @@ async function crearPDF(
             </div>
             <div class="divTotal">
                 <div class="grupoTitulos">
-                    <div class="importeTitulo">${
-                      codigoFactura == 6
-                        ? "Subtotal"
-                        : "Importe Neto Gravado: $"
-                    }</div>
-                    <div class="importeTitulo">${
-                      codigoFactura == 6 ? "" : "IVA 21%: $"
-                    }</div>
+                    <div class="importeTitulo">${codigoFactura == 6
+      ? "Subtotal"
+      : "Importe Neto Gravado: $"
+    }</div>
+                    <div class="importeTitulo">${codigoFactura == 6 ? "" : "IVA 21%: $"
+    }</div>
                     <div class="importeTitulo">Importe Total: $</div>
                 </div>
                 <div>
-                    <div class="infoImporte">${
-                      codigoFactura == 6 ? importe_total : importe_gravado
-                    }</div>
-                    <div class="infoImporte">${
-                      codigoFactura == 6 ? "" : importe_iva
-                    }</div>
+                    <div class="infoImporte">${codigoFactura == 6 ? importe_total : importe_gravado
+    }</div>
+                    <div class="infoImporte">${codigoFactura == 6 ? "" : importe_iva
+    }</div>
                     <div class="infoImporte">${importe_total}</div>
                 </div>
             </div>
@@ -770,9 +763,8 @@ async function crearPDF(
 
   await page.goto(`file://${htmlPath}`);
 
-  const path = `facturas/${numeroComprobante}-${
-    copia === "ORIGINAL" ? "O" : "D"
-  }.pdf`;
+  const path = `facturas/${numeroComprobante}-${copia === "ORIGINAL" ? "O" : "D"
+    }.pdf`;
 
   await page.pdf({
     path,
