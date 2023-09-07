@@ -4,8 +4,8 @@ const { print } = require("pdf-to-printer");
 const puppeteer = require("puppeteer");
 
 //CAMBIAR CERTIFICADO
-var pem = fs.readFileSync("certdami/pipillas.crt", "utf8");
-var key = fs.readFileSync("certdami/pipillas.key", "utf8");
+var pem = fs.readFileSync("certdiseño/disenio.crt", "utf8");
+var key = fs.readFileSync("certdiseño/disenio.key", "utf8");
 
 let prev_ta = "";
 let lastService = "wsfe";
@@ -88,7 +88,7 @@ async function getPersonaCUIT(cuit) {
     const TA = await getTA(config);
     const wspci = new Wspci(TA, config);
     const response = await wspci.getPersona_v2({
-      cuitRepresentada: "20418963906",
+      cuitRepresentada: CUIT,
       idPersona: cuit,
     });
     const nombre = obtenerNombre(cuit, response);
@@ -162,9 +162,20 @@ async function facturar({
     docNro = cuit;
   }
 
+  // ESTO ES PARA CbteFch
   const fecha = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
     .toISOString()
     .split("T")[0];
+
+  // ESTO ES PARA EL FchServDesde, FchServHasta y FchVtoPago
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = (today.getMonth() + 1).toString().padStart(2, "0");
+  const day = today.getDate().toString().padStart(2, "0");
+  const formattedDate = parseInt(year + month + day);
+  const fecha_servicio_desde = formattedDate;
+  const fecha_servicio_hasta = formattedDate;
+  const fecha_vencimiento_pago = formattedDate;
 
   const factura = {
     FeCAEReq: {
@@ -181,6 +192,9 @@ async function facturar({
           CbteDesde: numeroComprobante,
           CbteHasta: numeroComprobante,
           CbteFch: parseInt(fecha.replace(/-/g, "")),
+          FchServDesde: fecha_servicio_desde,
+          FchServHasta: fecha_servicio_hasta,
+          FchVtoPago: fecha_vencimiento_pago,
           ImpTotal: importe_total,
           ImpTotConc: 0.0,
           ImpNeto: importe_gravado,
@@ -203,8 +217,11 @@ async function facturar({
 
   const response = await wsfe.FECAESolicitar(factura);
 
-  const CAE = response.FECAESolicitarResult.FeDetResp.FeDetResp.CAE;
-  const vtoCAE = response.FECAESolicitarResult.FeDetResp.FeDetResp.CAEFchVto;
+  console.dir(response, { depth: null });
+
+  const CAE = response.FECAESolicitarResult.FeDetResp.FECAEDetResponse[0].CAE;
+  const vtoCAE =
+    response.FECAESolicitarResult.FeDetResp.FECAEDetResponse[0].CAEFchVto;
 
   let formattedDateString = year + "-" + month + "-" + day;
   let object = {
